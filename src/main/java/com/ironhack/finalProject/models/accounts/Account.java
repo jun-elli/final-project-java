@@ -8,10 +8,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 @MappedSuperclass
-public class Account {
+public abstract class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotNull
     @Transient
     private Money money;
     @NotNull
