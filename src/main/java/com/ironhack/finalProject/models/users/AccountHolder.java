@@ -24,4 +24,37 @@ public class AccountHolder extends User{
     @JoinColumn(name = "optional_address_id", referencedColumnName = "id")
     private Address optionalAddress;
 
+    public AccountHolder() {
+    }
+    public AccountHolder(String fullName, String username, String password, LocalDate dateOfBirth, Address primaryAddress, @Nullable Address optionalAddress) {
+        super(fullName, username, password);
+        this.dateOfBirth = dateOfBirth;
+        this.primaryAddress = primaryAddress;
+        this.optionalAddress = optionalAddress;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Address getPrimaryAddress() {
+        return primaryAddress;
+    }
+
+    public void setPrimaryAddress(Address primaryAddress) {
+        this.primaryAddress = primaryAddress;
+    }
+
+    @Nullable
+    public Address getOptionalAddress() {
+        return optionalAddress;
+    }
+
+    public void setOptionalAddress(@Nullable Address optionalAddress) {
+        this.optionalAddress = optionalAddress;
+    }
 }
