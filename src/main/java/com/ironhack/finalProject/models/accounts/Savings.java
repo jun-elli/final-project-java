@@ -11,13 +11,15 @@ import java.util.Date;
 
 @Entity
 @Table(name = "saving_accounts")
-public class Savings extends Account{
+public class Savings extends Account {
 
 
     /*Savings accounts have a default interest rate of 0.0025
-    Savings accounts may be instantiated with an interest rate other than the default, with a maximum interest rate of 0.5
+    Savings accounts may be instantiated with an interest rate other
+    than the default, with a maximum interest rate of 0.5
     Savings accounts should have a default minimumBalance of 1000
-    Savings accounts may be instantiated with a minimum balance of less than 1000 but no lower than 100*/
+    Savings accounts may be instantiated with a minimum balance of
+    less than 1000 but no lower than 100*/
 
     @NotNull
     private String secretKey;
@@ -39,7 +41,7 @@ public class Savings extends Account{
         this.secretKey = secretKey;
         this.minimumBalance = minimumBalance;
         this.creationDate = creationDate;
-        this.interestRate = interestRate;
+        setInterestRate(interestRate);
         this.status = status;
     }
 
@@ -72,7 +74,15 @@ public class Savings extends Account{
     }
 
     public void setInterestRate(BigDecimal interestRate) {
-        this.interestRate = interestRate;
+        BigDecimal max = new BigDecimal("0.5");
+        BigDecimal min = new BigDecimal("0");
+        if (interestRate.compareTo(max) > 0) {
+            this.interestRate = max;
+        } else if (interestRate.compareTo(min) < 0) {
+            this.interestRate = min;
+        } else {
+            this.interestRate = interestRate;
+        }
     }
 
     public AccountStatus getStatus() {

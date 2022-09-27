@@ -13,6 +13,12 @@ import java.util.Date;
 @Table(name = "checking_accounts")
 public class Checking extends Account{
     //like IBAN 2000 4564 5000 3837
+
+/*
+    When creating a new Checking account, if the primaryOwner is less than 24, a StudentChecking account should be created otherwise a regular Checking Account should be created.
+    Checking accounts should have a minimumBalance of 250 and a monthlyMaintenanceFee of 12
+*/
+
     @NotNull
     private String secretKey;
     @Transient
