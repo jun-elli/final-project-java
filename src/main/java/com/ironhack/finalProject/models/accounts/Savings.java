@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 
 @Entity
 @Table(name = "saving_accounts")
@@ -35,6 +34,8 @@ public class Savings extends Account {
     @NotNull
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
+    @Transient
+    private LocalDate whenLastInterestWasAdded;
 
     public Savings() {
     }
@@ -103,18 +104,50 @@ public class Savings extends Account {
     public void setStatus(AccountStatus status) {
         this.status = status;
     }
-/*
-    Interest on savings accounts is added to the account annually
-    at the rate of specified interestRate per year.
-    That means that if I have 1000000 in a savings account with a 0.01 interest rate,
-     1% of 1 Million is added to my account after 1 year.
-     When a savings account balance is accessed,
-     you must determine if it has been 1 year or more since either
-     the account was created or since interest was added to the account,
-     and add the appropriate interest to the balance if necessary.
-            */
-    public int getYearsSinceCreation(){
+
+    public LocalDate getWhenLastInterestWasAdded() {
+        return whenLastInterestWasAdded;
+    }
+
+    public void setWhenLastInterestWasAdded(LocalDate whenLastInterestWasAdded) {
+        this.whenLastInterestWasAdded = whenLastInterestWasAdded;
+    }
+
+    /*
+            Interest on savings accounts is added to the account annually
+            at the rate of specified interestRate per year.
+            That means that if I have 1000000 in a savings account with a 0.01 interest rate,
+             1% of 1 Million is added to my account after 1 year.
+             When a savings account balance is accessed,
+             you must determine if it has been 1 year or more since either
+             the account was created or since interest was added to the account,
+             and add the appropriate interest to the balance if necessary.
+                    */
+    public int getYearsSinceCreation() {
         return Period.between(getCreationDate(), LocalDate.now()).getYears();
+    }
+
+    public int getYearsSinceLastInterest() {
+        return Period.between(getWhenLastInterestWasAdded(), LocalDate.now()).getYears();
+    }
+
+    public void addYearlyInterest() {
+        BigDecimal addedInterest = getBalance().multiply(getInterestRate());
+        setBalance(getBalance().add(addedInterest));
+        whenLastInterestWasAdded = LocalDate.now();
+    }
+
+    public boolean isTimeToAddInterest() {
+        int years = getYearsSinceLastInterest();
+        return years >= 1;
+    }
+
+    public BigDecimal checkBalance() {
+        if (isTimeToAddInterest()) {
+            addYearlyInterest();
+            return getBalance();
+        }
+        return getBalance();
     }
 
 }
