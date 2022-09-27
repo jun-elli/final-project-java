@@ -5,8 +5,12 @@ import com.ironhack.finalProject.models.users.AccountHolder;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "credit_cards")
@@ -24,6 +28,9 @@ public class CreditCard extends Account{
     private BigDecimal creditLimit = BigDecimal.valueOf(100);
     @NotNull
     private BigDecimal interestRate = BigDecimal.valueOf(0.2);
+
+    @Transient
+    private LocalDate whenLastMonthlyInterestWasAdded = LocalDate.now();
 
     public CreditCard() {
     }
@@ -65,5 +72,47 @@ public class CreditCard extends Account{
             this.interestRate = interestRate;
         }
     }
+
+    public LocalDate getWhenLastMonthlyInterestWasAdded() {
+        return whenLastMonthlyInterestWasAdded;
+    }
+
+    public void setWhenLastMonthlyInterestWasAdded(LocalDate whenLastMonthlyInterestWasAdded) {
+        this.whenLastMonthlyInterestWasAdded = whenLastMonthlyInterestWasAdded;
+    }
+    /*
+    Interest on credit cards is added to the balance monthly.
+    If you have a 12% interest rate (0.12) then 1% interest will be added
+    to the account monthly. When the balance of a credit card is accessed,
+    check to determine if it has been 1 month or more since the account
+    was created or since interested was added, and if so,
+    add the appropriate interest to the balance.
+        */
+
+    public int getMonthsSinceLastInterest() {
+        return Period.between(getWhenLastMonthlyInterestWasAdded(), LocalDate.now()).getMonths();
+    }
+
+    public void addMonthlyInterest() {
+        //lacks monthly logic
+        BigDecimal monthlyInterest = getInterestRate().divide(BigDecimal.valueOf(12), RoundingMode.HALF_EVEN);
+        BigDecimal addedInterest = getBalance().multiply(monthlyInterest);
+        setBalance(getBalance().add(addedInterest));
+        whenLastMonthlyInterestWasAdded = LocalDate.now();
+    }
+
+    public boolean isTimeToAddInterest() {
+        int months = getMonthsSinceLastInterest();
+        return months >= 1;
+    }
+
+    public BigDecimal checkBalance() {
+        if (isTimeToAddInterest()) {
+            addMonthlyInterest();
+            return getBalance();
+        }
+        return getBalance();
+    }
+
 }
 

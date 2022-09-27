@@ -35,7 +35,7 @@ public class Savings extends Account {
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
     @Transient
-    private LocalDate whenLastInterestWasAdded;
+    private LocalDate whenLastInterestWasAdded = LocalDate.now();
 
     public Savings() {
     }
