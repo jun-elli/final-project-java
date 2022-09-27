@@ -17,6 +17,7 @@ public class Savings extends Account {
     /*Savings accounts have a default interest rate of 0.0025
     Savings accounts may be instantiated with an interest rate other
     than the default, with a maximum interest rate of 0.5
+
     Savings accounts should have a default minimumBalance of 1000
     Savings accounts may be instantiated with a minimum balance of
     less than 1000 but no lower than 100*/
@@ -39,7 +40,7 @@ public class Savings extends Account {
     public Savings(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, BigDecimal minimumBalance, Date creationDate, BigDecimal interestRate, AccountStatus status) {
         super(money, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
+        setMinimumBalance(minimumBalance);
         this.creationDate = creationDate;
         setInterestRate(interestRate);
         this.status = status;
@@ -58,7 +59,15 @@ public class Savings extends Account {
     }
 
     public void setMinimumBalance(BigDecimal minimumBalance) {
-        this.minimumBalance = minimumBalance;
+        BigDecimal max = new BigDecimal("1000");
+        BigDecimal min = new BigDecimal("100");
+        if (minimumBalance.compareTo(max) > 0) {
+            this.minimumBalance = max;
+        } else if (minimumBalance.compareTo(min) < 0) {
+            this.minimumBalance = min;
+        } else {
+            this.minimumBalance = minimumBalance;
+        }
     }
 
     public Date getCreationDate() {
