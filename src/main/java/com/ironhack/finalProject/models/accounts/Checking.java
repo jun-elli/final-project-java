@@ -4,9 +4,7 @@ import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.enums.AccountStatus;
 import com.ironhack.finalProject.models.users.AccountHolder;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,6 +22,7 @@ public class Checking extends Account{
     @NotNull
     private Date creationDate;
     @NotNull
+    @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
 
     public Checking() {
