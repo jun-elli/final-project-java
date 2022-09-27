@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 @Entity
 @Table(name = "student_checking_accounts")
 public class StudentChecking extends Account{
@@ -19,7 +18,7 @@ public class StudentChecking extends Account{
     @NotNull
     private String secretKey;
     @NotNull
-    private Date creationDate;
+    private LocalDate creationDate;
     @NotNull
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
@@ -27,7 +26,7 @@ public class StudentChecking extends Account{
     public StudentChecking() {
     }
 
-    public StudentChecking(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, Date creationDate, AccountStatus status) {
+    public StudentChecking(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, LocalDate creationDate, AccountStatus status) {
         super(money, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.creationDate = creationDate;
@@ -42,11 +41,11 @@ public class StudentChecking extends Account{
         this.secretKey = secretKey;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 

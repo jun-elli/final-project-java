@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 
 @Entity
 @Table(name = "checking_accounts")
@@ -30,7 +29,7 @@ public class Checking extends Account{
     @Transient
     private final BigDecimal MONTHLY_MAINTENANCE_FEE = BigDecimal.valueOf(12);
     @NotNull
-    private Date creationDate;
+    private LocalDate creationDate;
     @NotNull
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
@@ -38,7 +37,7 @@ public class Checking extends Account{
     public Checking() {
     }
 
-    public Checking(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, Date creationDate, AccountStatus status) {
+    public Checking(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, LocalDate creationDate, AccountStatus status) {
         super(money, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.creationDate = creationDate;
@@ -61,11 +60,11 @@ public class Checking extends Account{
         return MONTHLY_MAINTENANCE_FEE;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 

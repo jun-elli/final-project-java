@@ -7,6 +7,8 @@ import com.ironhack.finalProject.models.users.AccountHolder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 @Entity
@@ -27,7 +29,7 @@ public class Savings extends Account {
     @Transient
     private BigDecimal minimumBalance = BigDecimal.valueOf(1000);
     @NotNull
-    private Date creationDate;
+    private LocalDate creationDate;
     @NotNull
     private BigDecimal interestRate = BigDecimal.valueOf(0.0025);
     @NotNull
@@ -37,7 +39,7 @@ public class Savings extends Account {
     public Savings() {
     }
 
-    public Savings(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, BigDecimal minimumBalance, Date creationDate, BigDecimal interestRate, AccountStatus status) {
+    public Savings(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, String secretKey, BigDecimal minimumBalance, LocalDate creationDate, BigDecimal interestRate, AccountStatus status) {
         super(money, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         setMinimumBalance(minimumBalance);
@@ -70,11 +72,11 @@ public class Savings extends Account {
         }
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -101,4 +103,18 @@ public class Savings extends Account {
     public void setStatus(AccountStatus status) {
         this.status = status;
     }
+/*
+    Interest on savings accounts is added to the account annually
+    at the rate of specified interestRate per year.
+    That means that if I have 1000000 in a savings account with a 0.01 interest rate,
+     1% of 1 Million is added to my account after 1 year.
+     When a savings account balance is accessed,
+     you must determine if it has been 1 year or more since either
+     the account was created or since interest was added to the account,
+     and add the appropriate interest to the balance if necessary.
+            */
+    public int getYearsSinceCreation(){
+        return Period.between(getCreationDate(), LocalDate.now()).getYears();
+    }
+
 }
