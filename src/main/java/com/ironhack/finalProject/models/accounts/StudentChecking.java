@@ -9,6 +9,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 @Entity
 @Table(name = "student_checking_accounts")
@@ -54,5 +56,16 @@ public class StudentChecking extends Account{
 
     public void setStatus(AccountStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public void setPrimaryOwner(AccountHolder primaryOwner) {
+        // calculate age
+        int age = Period.between(primaryOwner.getDateOfBirth(), LocalDate.now()).getYears();
+        //conditional to 24 or thrwo exception
+        if (age >= 24) {
+            throw new IllegalArgumentException("The owner is 24 or older, a normal Checking account should be opened instead");
+        }
+        super.setPrimaryOwner(primaryOwner);
     }
 }
