@@ -7,9 +7,11 @@ import com.ironhack.finalProject.models.users.AccountHolder;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 @Entity
+@Table(name = "student_checking_accounts")
 public class StudentChecking extends Account{
 
     @NotNull

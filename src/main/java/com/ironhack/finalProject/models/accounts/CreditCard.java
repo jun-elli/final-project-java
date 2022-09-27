@@ -4,10 +4,12 @@ import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.users.AccountHolder;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "credit_cards")
 public class CreditCard extends Account{
     //creditLimit
     // interestRate
