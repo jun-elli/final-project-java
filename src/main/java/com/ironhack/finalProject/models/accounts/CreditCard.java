@@ -31,7 +31,7 @@ public class CreditCard extends Account{
     public CreditCard(Money money, AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
         super(money, primaryOwner, secondaryOwner);
         setCreditLimit(creditLimit);
-        this.interestRate = interestRate;
+        setInterestRate(interestRate);
     }
 
     public BigDecimal getCreditLimit() {
@@ -55,7 +55,15 @@ public class CreditCard extends Account{
     }
 
     public void setInterestRate(BigDecimal interestRate) {
-        this.interestRate = interestRate;
+        BigDecimal max = new BigDecimal("0.2");
+        BigDecimal min = new BigDecimal("0.1");
+        if (interestRate.compareTo(max) > 0) {
+            this.interestRate = max;
+        } else if (interestRate.compareTo(min) < 0) {
+            this.interestRate = min;
+        } else {
+            this.interestRate = interestRate;
+        }
     }
 }
 
