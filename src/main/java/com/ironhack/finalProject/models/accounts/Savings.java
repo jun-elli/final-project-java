@@ -133,7 +133,8 @@ public class Savings extends Account {
 
     public void addYearlyInterest() {
         BigDecimal addedInterest = getBalance().multiply(getInterestRate());
-        setBalance(getBalance().add(addedInterest));
+        Money newTotal = new Money(getBalance().add(addedInterest));
+        setMoney(newTotal);
         whenLastInterestWasAdded = LocalDate.now();
     }
 
