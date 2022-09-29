@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.models.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.users.AccountHolder;
 import org.springframework.lang.Nullable;
@@ -14,6 +15,7 @@ public class Account {
     private int id;
     @NotNull
     @Transient
+    @JsonIgnore
     private Money money = new Money(new BigDecimal("0"));
     @NotNull
     private BigDecimal balance = new BigDecimal("0");
