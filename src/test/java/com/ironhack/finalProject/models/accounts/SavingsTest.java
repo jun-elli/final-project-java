@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,13 +62,29 @@ class SavingsTest {
 
     @Test
     void addYearlyInterest() {
+        savings.addYearlyInterest();
+        assertEquals(new BigDecimal("1100.00"), savings.getBalance());
+        assertEquals(LocalDate.now().getDayOfMonth(), savings.getWhenLastInterestWasAdded().getDayOfMonth());
     }
 
     @Test
     void isTimeToAddInterest() {
+        //False if less than a year
+        savings.setWhenLastInterestWasAdded(LocalDate.of(2022, 9, 13));
+        assertFalse(savings.isTimeToAddInterest());
+        //true if more than a year
+        savings.setWhenLastInterestWasAdded(LocalDate.of(2021, 8, 13));
+        assertTrue(savings.isTimeToAddInterest());
     }
 
     @Test
     void checkBalance() {
+        // if less than a year, balance should be 1000.00
+        savings.setWhenLastInterestWasAdded(LocalDate.of(2022, 9, 13));
+        assertEquals(new BigDecimal("1000.00"), savings.checkBalance());
+
+        //if time is more than a year, add new interest and return balance should be 1010.00
+        savings.setWhenLastInterestWasAdded(LocalDate.of(2021, 8, 13));
+        assertEquals(new BigDecimal("1100.00"), savings.checkBalance());
     }
 }
