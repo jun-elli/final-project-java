@@ -1,4 +1,4 @@
-package com.ironhack.finalProject;
+package com.ironhack.finalProject.controllers;
 
 import com.ironhack.finalProject.models.accounts.Checking;
 import com.ironhack.finalProject.services.accounts.CheckingServiceImp;

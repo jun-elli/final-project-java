@@ -16,15 +16,15 @@ public class User {
     @NotNull
     private String username;
     @NotNull
-    private String password;
+    private String secretPass;
 
     public User() {
     }
 
-    public User(String fullName, String username, String password) {
+    public User(String fullName, String username, String secretPass) {
         setFullName(fullName);
         setUsername(username);
-        setPassword(password);
+        setSecretPass(secretPass);
     }
 
     public int getId() {
@@ -51,11 +51,11 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSecretPass() {
+        return secretPass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSecretPass(String secretPass) {
+        this.secretPass = secretPass;
     }
 }

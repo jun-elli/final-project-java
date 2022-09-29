@@ -16,14 +16,11 @@ import java.util.Currency;
 @SpringBootApplication
 public class FinalProjectApplication {
 
-	@Autowired
-	private static CheckingRepository checkingRepository;
-
 	public static void main(String[] args) {
 		SpringApplication.run(FinalProjectApplication.class, args);
 	}
 
-	public static void populateDB(){
+	/*public static void populateDB(){
 		//Money
 		Money money = new Money(new BigDecimal("200"), Currency.getInstance("USD"));
 		//Primary Owner
@@ -38,6 +35,6 @@ public class FinalProjectApplication {
 		Checking checking = new Checking(money,owner, null, "123", creationDate, AccountStatus.DISABLED);
 
 		checkingRepository.save(checking);
-	}
+	}*/
 
 }

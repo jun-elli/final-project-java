@@ -1,11 +1,14 @@
 package com.ironhack.finalProject.models.users;
 
 import com.ironhack.finalProject.models.Address;
+import com.ironhack.finalProject.models.accounts.Account;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "account_holders")
@@ -23,6 +26,11 @@ public class AccountHolder extends User{
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "optional_address_id", referencedColumnName = "id")
     private Address optionalAddress;
+
+   /* @OneToMany(mappedBy = "primaryOwner")
+    private List<Account> accountSetWherePrimaryOwner;
+    @OneToMany(mappedBy = "secondaryOwner")
+    private Set<Account> accountSetWhereSecondaryOwner;*/
 
     public AccountHolder() {
     }
