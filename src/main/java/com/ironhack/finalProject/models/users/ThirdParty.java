@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "third_parties")
 public class ThirdParty extends User{
-    // hashed key like a PIN
+    // hashed key is an identifier
     @NotNull
     private String hashedKey;
 
