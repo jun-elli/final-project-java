@@ -79,5 +79,14 @@ class CreditCardTest {
 
     @Test
     void checkBalance() {
+        // if less than a month, balance should be 1000.00
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 9, 13));
+        assertEquals(new BigDecimal("1000.00"), creditCard.checkBalance());
+
+        //if time is more than a month, add new interest and return balance should be 1010.00
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 8, 13));
+        assertEquals(new BigDecimal("1010.00"), creditCard.checkBalance());
+
+
     }
 }
