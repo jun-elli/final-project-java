@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.config;
 
+import com.ironhack.finalProject.models.users.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,11 +8,19 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    //private user user;
+    private User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
