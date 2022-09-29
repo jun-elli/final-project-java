@@ -14,11 +14,11 @@ public abstract class Account {
     private int id;
     @NotNull
     @Transient
-    private Money money;
+    private Money money = new Money(new BigDecimal("0"));
     @NotNull
-    private BigDecimal balance;
+    private BigDecimal balance = new BigDecimal("0");
     @NotNull
-    private String currency;
+    private String currency = "USD";
     @ManyToOne
     @JoinColumn(name = "primary_owner_id", referencedColumnName = "id", nullable = false)
     private AccountHolder primaryOwner;

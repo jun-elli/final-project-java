@@ -1,10 +1,13 @@
 package com.ironhack.finalProject.models.accounts;
 
+import com.ironhack.finalProject.models.Money;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
@@ -15,6 +18,11 @@ class CreditCardTest {
     @BeforeEach
     void setup(){
         creditCard = new CreditCard();
+        BigDecimal myInterest = new BigDecimal("0.12");
+        creditCard.setInterestRate(myInterest);
+        BigDecimal limit = new BigDecimal("1000");
+        creditCard.setCreditLimit(limit);
+        creditCard.setMoney(new Money(new BigDecimal("1000"), Currency.getInstance("USD")));
     }
 
     @Test
@@ -52,7 +60,10 @@ class CreditCardTest {
     }
 
     @Test
-    void addMonthlyInterest() {
+    void addMonthlyInterest_WorksAsExpected() {
+        creditCard.addMonthlyInterest();
+        assertEquals(new BigDecimal("1010.00"), creditCard.getBalance());
+        assertEquals(LocalDate.now().getDayOfMonth(), creditCard.getWhenLastMonthlyInterestWasAdded().getDayOfMonth());
     }
 
     @Test
