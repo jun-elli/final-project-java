@@ -66,8 +66,15 @@ class CreditCardTest {
         assertEquals(LocalDate.now().getDayOfMonth(), creditCard.getWhenLastMonthlyInterestWasAdded().getDayOfMonth());
     }
 
-    @Test
+    @Test // If I have time, think how to change dates according to actual date
     void isTimeToAddInterest() {
+        //False if less than a month
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 9, 13));
+        assertFalse(creditCard.isTimeToAddInterest());
+        //true if more than a month
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 8, 13));
+        assertTrue(creditCard.isTimeToAddInterest());
+
     }
 
     @Test
