@@ -43,6 +43,20 @@ class SavingsTest {
 
     @Test
     void setInterestRate() {
+        BigDecimal aboveMax = new BigDecimal("0.80");
+        BigDecimal max = new BigDecimal("0.5");
+        BigDecimal min = new BigDecimal("0");
+        BigDecimal belowMin = new BigDecimal("-0.2");
+
+        savings.setInterestRate(max);
+        assertEquals(max, savings.getInterestRate());
+        savings.setInterestRate(aboveMax);
+        assertEquals(max, savings.getInterestRate());
+        savings.setInterestRate(min);
+        assertEquals(min, savings.getInterestRate());
+        savings.setInterestRate(belowMin);
+        assertEquals(min, savings.getInterestRate());
+
     }
 
     @Test
