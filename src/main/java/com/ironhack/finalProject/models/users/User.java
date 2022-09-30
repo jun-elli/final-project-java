@@ -1,9 +1,8 @@
 package com.ironhack.finalProject.models.users;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import com.ironhack.finalProject.config.security.Credentials;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
@@ -13,18 +12,16 @@ public class User {
     private int id;
     @NotNull
     private String fullName;
-    @NotNull
-    private String username;
-    @NotNull
-    private String secretPass;
+    @OneToOne
+    @JoinColumn(name = "credentials_id", referencedColumnName = "id")
+    Credentials credentials;
 
     public User() {
     }
 
-    public User(String fullName, String username, String secretPass) {
-        setFullName(fullName);
-        setUsername(username);
-        setSecretPass(secretPass);
+    public User(String fullName, Credentials credentials) {
+        this.fullName = fullName;
+        this.credentials = credentials;
     }
 
     public int getId() {
@@ -43,19 +40,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getUsername() {
-        return username;
+    public Credentials getCredentials() {
+        return credentials;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getSecretPass() {
-        return secretPass;
-    }
-
-    public void setSecretPass(String secretPass) {
-        this.secretPass = secretPass;
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 }

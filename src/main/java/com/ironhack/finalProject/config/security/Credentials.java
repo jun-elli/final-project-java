@@ -1,5 +1,7 @@
 package com.ironhack.finalProject.config.security;
 
+import com.ironhack.finalProject.models.users.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -15,6 +17,9 @@ public class Credentials {
     private String secretPass;
     @OneToMany(mappedBy = "credentials", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Role> roles;
+
+    @OneToOne(mappedBy = "credentials")
+    private User user;
 
     public Credentials() {
     }

@@ -1,26 +1,36 @@
 package com.ironhack.finalProject.config;
 
+import com.ironhack.finalProject.config.security.Credentials;
+import com.ironhack.finalProject.config.security.Role;
 import com.ironhack.finalProject.models.users.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    private Credentials credentials;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Collection<GrantedAuthority> authorities = new HashSet<>();
+
+        for(Role role : credentials.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        }
+
+        return authorities;
     }
 
-    public User getUser() {
-        return user;
+    public Credentials getCredentials() {
+        return credentials;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 
     @Override
