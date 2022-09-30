@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.config;
 
+import com.ironhack.finalProject.config.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,14 +19,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfiguration {
 
-    //Autowire CustomUserDetailService
+    @Autowired
+    CustomUserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
-    //Not working because of bcrypt and userDetailService does not yet exists
     @Bean
     public AuthenticationManager authManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception{
         return http.getSharedObject(AuthenticationManagerBuilder.class)
