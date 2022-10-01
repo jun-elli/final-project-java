@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 public class Credentials {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
     private String username;

@@ -1,11 +1,15 @@
 package com.ironhack.finalProject.models.users;
 
+import com.ironhack.finalProject.config.security.Credentials;
+
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "third_parties")
+@DiscriminatorValue("3")
 public class ThirdParty extends User{
     // hashed key is an identifier
     @NotNull
@@ -14,8 +18,8 @@ public class ThirdParty extends User{
     public ThirdParty() {
     }
 
-    public ThirdParty(String fullName, String username, String password, String hashedKey) {
-        super(fullName, username, password);
+    public ThirdParty(String fullName, Credentials credentials, String hashedKey) {
+        super(fullName, credentials);
         this.hashedKey = hashedKey;
     }
 

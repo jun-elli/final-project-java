@@ -5,7 +5,10 @@ import com.ironhack.finalProject.config.security.Credentials;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type",
+        discriminatorType = DiscriminatorType.INTEGER)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +17,7 @@ public class User {
     private String fullName;
     @OneToOne
     @JoinColumn(name = "credentials_id", referencedColumnName = "id")
+    @NotNull
     Credentials credentials;
 
     public User() {

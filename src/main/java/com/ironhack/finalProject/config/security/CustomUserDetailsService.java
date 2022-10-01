@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         CustomUserDetails userDetails = new CustomUserDetails();
-        userDetails.setUser(user.get());
+        userDetails.setCredentials(user.get());
 
         return userDetails;
         //return null;

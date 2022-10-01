@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.models.users;
 
+import com.ironhack.finalProject.config.security.Credentials;
 import com.ironhack.finalProject.models.Address;
 import com.ironhack.finalProject.models.accounts.Account;
 import org.springframework.lang.Nullable;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "account_holders")
+@DiscriminatorValue("2")
 public class AccountHolder extends User{
     // Date of birth
     //A primaryAddress (which should be a separate address class)
@@ -34,8 +36,9 @@ public class AccountHolder extends User{
 
     public AccountHolder() {
     }
-    public AccountHolder(String fullName, String username, String password, LocalDate dateOfBirth, Address primaryAddress, @Nullable Address optionalAddress) {
-        super(fullName, username, password);
+
+    public AccountHolder(String fullName, Credentials credentials, LocalDate dateOfBirth, Address primaryAddress, @Nullable Address optionalAddress) {
+        super(fullName, credentials);
         this.dateOfBirth = dateOfBirth;
         this.primaryAddress = primaryAddress;
         this.optionalAddress = optionalAddress;
