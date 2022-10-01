@@ -1,5 +1,7 @@
 package com.ironhack.finalProject.controllers;
 
+import com.ironhack.finalProject.config.security.Credentials;
+import com.ironhack.finalProject.config.security.CredentialsServiceImp;
 import com.ironhack.finalProject.models.users.User;
 import com.ironhack.finalProject.services.users.UserService;
 import com.ironhack.finalProject.services.users.UserServiceImp;
@@ -14,16 +16,17 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserServiceImp userServiceImp;
-    private PasswordUtil passwordUtil;
+    @Autowired
+    private CredentialsServiceImp credentialsServiceImp;
 
     @GetMapping("/users")
     public List<User> getAllUsers(){
         return userServiceImp.listAllUsers();
     }
 
-   /* @GetMapping("/getsuper")
-    public String createSuper(){
-        return null;
-    }*/
+    @GetMapping("/credentials")
+    public List<Credentials> getAllCredentials(){
+        return credentialsServiceImp.listAllCredentials();
+    }
 
 }

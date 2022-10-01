@@ -20,21 +20,5 @@ public class FinalProjectApplication {
 		SpringApplication.run(FinalProjectApplication.class, args);
 	}
 
-	/*public static void populateDB(){
-		//Money
-		Money money = new Money(new BigDecimal("200"), Currency.getInstance("USD"));
-		//Primary Owner
-		AccountHolder owner = new AccountHolder();
-			//Address?
-		//secondary null
-		//secretkey
-		//creationdate
-		LocalDate creationDate = LocalDate.of(2021, 1, 1);
-		//status
-
-		Checking checking = new Checking(money,owner, null, "123", creationDate, AccountStatus.DISABLED);
-
-		checkingRepository.save(checking);
-	}*/
 
 }

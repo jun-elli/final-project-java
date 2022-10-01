@@ -39,7 +39,7 @@ public class SecurityConfiguration {
         http.httpBasic();
         http.csrf().disable()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, "/checkings").hasRole("USER")
+                .mvcMatchers(HttpMethod.GET, "/checkings").hasAnyRole("USER")
                 .anyRequest().permitAll();
         return http.build();
     }
