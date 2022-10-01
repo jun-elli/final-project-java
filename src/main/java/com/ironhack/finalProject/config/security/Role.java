@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.config.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Tables;
 
 import javax.persistence.*;
@@ -13,6 +14,8 @@ public class Role {
 
     private String name;
 
+    //Many to many
+    @JsonIgnore
     @ManyToOne
     private Credentials credentials;
 

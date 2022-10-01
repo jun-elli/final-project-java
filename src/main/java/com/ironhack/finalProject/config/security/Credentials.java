@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.config.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.finalProject.models.users.User;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Credentials {
     @OneToMany(mappedBy = "credentials", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     Set<Role> roles;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "credentials")
     private User user;
 
