@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 @DiscriminatorValue("3")
 public class ThirdParty extends User{
     // hashed key is an identifier
-    @NotNull
     private String hashedKey;
 
     public ThirdParty() {

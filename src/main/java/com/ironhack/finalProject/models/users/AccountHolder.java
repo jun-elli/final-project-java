@@ -15,14 +15,12 @@ import java.util.Set;
 @Table(name = "account_holders")
 @DiscriminatorValue("2")
 public class AccountHolder extends User{
-    // Date of birth
-    //A primaryAddress (which should be a separate address class)
-    //An optional mailingAddress
-    @NotNull
+
     private LocalDate dateOfBirth;
 
+    @Nullable
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "primary_address_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "primary_address_id", referencedColumnName = "id")
     private Address primaryAddress;
     @Nullable
     @OneToOne(cascade = CascadeType.ALL)
