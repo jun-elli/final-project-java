@@ -14,9 +14,4 @@ public class CredentialsServiceImp implements CredentialsService{
     public List<Credentials> listAllCredentials() {
         return credentialsRepository.findAll();
     }
-
-    @Override
-    public Credentials addNewCredentials(Credentials credentials) {
-        return null;
-    }
 }

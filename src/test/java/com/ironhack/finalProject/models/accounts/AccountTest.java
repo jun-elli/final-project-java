@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.models.accounts;
 
+import com.ironhack.finalProject.config.security.Credentials;
 import com.ironhack.finalProject.models.Address;
 import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.users.AccountHolder;
@@ -24,7 +25,10 @@ class AccountTest {
         Money money = new Money(new BigDecimal("150"));
         LocalDate dateOfBirth = LocalDate.of(1980, 9, 22);
         Address address = new Address("Carrer del Croissant", "23, 2n 3a", "Barcelona", "Spain", "08001");
-        AccountHolder primaryOwner = new AccountHolder("Marie Bront", "marie1", "1234", dateOfBirth, address, null);
+        Credentials credentials = new Credentials();
+        credentials.setUsername("marie1");
+        credentials.setSecretPass("1234");
+        AccountHolder primaryOwner = new AccountHolder("Marie Bront", credentials, dateOfBirth, address, null);
         creditCard = new CreditCard(money, primaryOwner,null, new BigDecimal("200"), new BigDecimal("0.02"));
     }
 
