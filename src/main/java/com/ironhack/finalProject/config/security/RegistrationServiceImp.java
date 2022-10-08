@@ -1,7 +1,6 @@
 package com.ironhack.finalProject.config.security;
 
 import com.ironhack.finalProject.DTO.RegistrationUserDTO;
-import com.ironhack.finalProject.config.CustomUserDetails;
 import com.ironhack.finalProject.models.Address;
 import com.ironhack.finalProject.models.users.AccountHolder;
 import com.ironhack.finalProject.models.users.Admin;
@@ -12,15 +11,12 @@ import com.ironhack.finalProject.repositories.users.AccountHolderRepository;
 import com.ironhack.finalProject.repositories.users.AdminRepository;
 import com.ironhack.finalProject.repositories.users.ThirdPartyRepository;
 import com.ironhack.finalProject.repositories.users.UserRepository;
-import com.ironhack.finalProject.utils.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RegistrationServiceImp implements RegistrationService{
@@ -43,42 +39,66 @@ public class RegistrationServiceImp implements RegistrationService{
     @Override
     public User addNewUser(RegistrationUserDTO userDTO) {
         // registro les credencials
+        if (userDTO.getUsername() == null || userDTO.getSecretPass() == null){
+            throw new IllegalArgumentException("Credentials not found");
+        }
         Credentials credentials = new Credentials();
         credentials.setUsername(userDTO.getUsername());
         credentials.setSecretPass(passwordEncoder.encode(userDTO.getSecretPass()));
         Credentials savedCredentials = credentialsRepository.save(credentials);
         // registro els rols
+
+        if (userDTO.getRoles() == null){
+            credentialsRepository.delete(savedCredentials);
+            throw new IllegalArgumentException("Roles not found");
+        }
+        List<Role> roleList = new ArrayList<>();
         for (String role : userDTO.getRoles()) {
             Role r = new Role();
             r.setName(role);
             r.setCredentials(savedCredentials);
-            roleRepository.save(r);
+            Role savedRole = roleRepository.save(r);
+            roleList.add(savedRole);
         }
         // agafo DTO i miro quin tipus de user estic rebent
         User newUser;
         switch (userDTO.getUserType()) {
             case 1 -> {
-                Admin a = createAdmin(userDTO, savedCredentials);
+                Admin a = createAdmin(userDTO, savedCredentials, roleList);
                 newUser = adminRepository.save(a);
             }
             case 2 -> {
-                AccountHolder h = createHolder(userDTO, savedCredentials);
+                AccountHolder h = createHolder(userDTO, savedCredentials, roleList);
                 newUser = accountHolderRepository.save(h);
             }
             case 3 -> {
-                ThirdParty t = createThirdParty(userDTO, savedCredentials);
+                ThirdParty t = createThirdParty(userDTO, savedCredentials, roleList);
                 newUser = thirdPartyRepository.save(t);
             }
-            default -> throw new IllegalArgumentException("User type not found.");
+            default -> {
+                credentialsRepository.delete(savedCredentials);
+                roleRepository.deleteAll(roleList);
+                throw new IllegalArgumentException("User type not found.");
+            }
         };
         return newUser;
     }
 
-    private ThirdParty createThirdParty(RegistrationUserDTO userDTO, Credentials savedCredentials) {
+    private ThirdParty createThirdParty(RegistrationUserDTO userDTO, Credentials savedCredentials, List<Role> roleList) {
+        if (userDTO.getFullName() == null || userDTO.getHashedKey() == null){
+            credentialsRepository.delete(savedCredentials);
+            roleRepository.deleteAll(roleList);
+            throw new IllegalArgumentException("Third party information not found.");
+        }
         return new ThirdParty(userDTO.getFullName(), savedCredentials, passwordEncoder.encode(userDTO.getHashedKey()));
     }
 
-    private AccountHolder createHolder(RegistrationUserDTO userDTO, Credentials savedCredentials) {
+    private AccountHolder createHolder(RegistrationUserDTO userDTO, Credentials savedCredentials, List<Role> roleList) {
+        if (userDTO.getFullName() == null || userDTO.getPrimaryAddress() == null || userDTO.getDateOfBirth() == null){
+            credentialsRepository.delete(savedCredentials);
+            roleRepository.deleteAll(roleList);
+            throw new IllegalArgumentException("Account holder information not found.");
+        }
         AccountHolder newHolder = new AccountHolder();
         newHolder.setFullName(userDTO.getFullName());
         newHolder.setCredentials(savedCredentials);
@@ -99,7 +119,12 @@ public class RegistrationServiceImp implements RegistrationService{
         return addressRepository.save(newAddress);
     }
 
-    private Admin createAdmin(RegistrationUserDTO userDTO, Credentials savedCredentials) {
+    private Admin createAdmin(RegistrationUserDTO userDTO, Credentials savedCredentials, List<Role> roleList) {
+        if (userDTO.getFullName() == null){
+            credentialsRepository.delete(savedCredentials);
+            roleRepository.deleteAll(roleList);
+            throw new IllegalArgumentException("Admin information not found.");
+        }
         Admin newAdmin = new Admin();
         newAdmin.setFullName(userDTO.getFullName());
         newAdmin.setCredentials(savedCredentials);
