@@ -16,7 +16,7 @@ public class Credentials {
     private String username;
     @NotNull
     private String secretPass;
-    @OneToMany(mappedBy = "credentials", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "credentials", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.REMOVE)
     Set<Role> roles;
 
     @JsonIgnore

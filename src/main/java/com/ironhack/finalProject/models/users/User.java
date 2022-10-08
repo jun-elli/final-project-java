@@ -15,7 +15,7 @@ public class User {
     private int id;
     @NotNull
     private String fullName;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "credentials_id", referencedColumnName = "id")
     @NotNull
     Credentials credentials;
