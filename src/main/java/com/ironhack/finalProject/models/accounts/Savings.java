@@ -150,5 +150,13 @@ public class Savings extends Account {
         }
         return getBalance();
     }
+    @Override
+    public BigDecimal subtractMoney(Money substractingMoney) {
+        getMoney().decreaseAmount(substractingMoney);
+        if (getBalance().compareTo(getMinimumBalance()) < 0){
+            getMoney().decreaseAmount(getPENALTY_FEE());
+        }
+        return getBalance();
+    }
 
 }

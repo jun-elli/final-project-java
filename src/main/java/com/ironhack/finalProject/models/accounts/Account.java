@@ -103,10 +103,12 @@ public class Account {
     }
     //Basic add and substract money methods,
     // they will be overridden to account for limits on subclasses
-    public void addMoney(Money addingMoney){
+    public BigDecimal addMoney(Money addingMoney){
         this.money.increaseAmount(addingMoney);
+        return getBalance();
     }
-    public void substractMoney(Money substractingMoney){
+    public BigDecimal subtractMoney(Money substractingMoney){
         this.money.decreaseAmount(substractingMoney);
+        return getBalance();
     }
 }

@@ -86,4 +86,13 @@ public class Checking extends Account{
         }
         super.setPrimaryOwner(primaryOwner);
     }
+
+    @Override
+    public BigDecimal subtractMoney(Money substractingMoney) {
+        getMoney().decreaseAmount(substractingMoney);
+        if (getBalance().compareTo(getMINIMUM_BALANCE()) < 0){
+            getMoney().decreaseAmount(getPENALTY_FEE());
+        }
+        return getBalance();
+    }
 }
