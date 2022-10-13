@@ -34,5 +34,5 @@ select * from user;
 select * from credentials;
 select * from roles;
 
-delete from credentials where username = 'VirKong1';
-delete from roles where credentials_id = 10;
+delete from credentials where username = 'LaVasallo';
+delete from roles where credentials_id = 14;

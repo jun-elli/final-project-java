@@ -104,6 +104,25 @@ class RegistrationServiceImpTest {
         assertEquals(1, ah.getDateOfBirth().getMonthValue());
         assertEquals("plaça de Roma", ah.getPrimaryAddress().getStreet());
     }
-    // check one user of a kind is created x3
+
+    @Test
+    void addNewUser_Third(){
+        goodDTO.setUserType(3);
+        goodDTO.setFullName("Chizuko Ueno");
+        goodDTO.setUsername("dra-ueno9");
+        goodDTO.setSecretPass("123098");
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("THIRD");
+        goodDTO.setRoles(roles);
+        goodDTO.setHashedKey("123-456-789");
+        newUser = registrationServiceImp.addNewUser(goodDTO);
+        assertEquals("Chizuko Ueno", newUser.getFullName());
+        assertEquals("dra-ueno9", newUser.getCredentials().getUsername());
+    }
+
+    @Test
+    void addNewUser_ThrowExceptionsIfInformationMissing(){
+
+    }
     // throw errors if information is missing
 }

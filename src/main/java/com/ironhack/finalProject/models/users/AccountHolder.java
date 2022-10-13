@@ -19,7 +19,7 @@ public class AccountHolder extends User{
     private LocalDate dateOfBirth;
 
     @Nullable
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "primary_address_id", referencedColumnName = "id")
     private Address primaryAddress;
     @Nullable
