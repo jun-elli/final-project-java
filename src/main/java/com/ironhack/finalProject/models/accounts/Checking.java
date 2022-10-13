@@ -110,9 +110,8 @@ public class Checking extends Account{
 
     public void substractMonthlyFee() {
         BigDecimal months = new BigDecimal(getMonthsSinceLastMaintenanceFeeDeduction());
-        BigDecimal totalFee = getMONTHLY_MAINTENANCE_FEE().multiply(months);
-        Money newTotal = new Money(getBalance().subtract(totalFee));
-        setMoney(newTotal);
+        Money totalFee = new Money(getMONTHLY_MAINTENANCE_FEE().multiply(months));
+        subtractMoney(totalFee);
         whenLastMaintenanceFeeWasDeducted = LocalDate.now();
     }
 

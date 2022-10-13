@@ -35,7 +35,7 @@ public class Savings extends Account {
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
     @Transient
-    private LocalDate whenLastInterestWasAdded = LocalDate.now();
+    private LocalDate whenLastInterestWasAdded = creationDate;
 
     public Savings() {
     }
@@ -45,6 +45,7 @@ public class Savings extends Account {
         this.secretKey = secretKey;
         setMinimumBalance(minimumBalance);
         this.creationDate = creationDate;
+        setWhenLastInterestWasAdded(creationDate);
         setInterestRate(interestRate);
         this.status = status;
     }
