@@ -25,9 +25,9 @@ public class Checking extends Account{
 
     @NotNull
     private String secretKey;
-    @Transient
+    @NotNull
     private final BigDecimal MINIMUM_BALANCE = BigDecimal.valueOf(250);
-    @Transient
+    @NotNull
     private final BigDecimal MONTHLY_MAINTENANCE_FEE = BigDecimal.valueOf(12);
     @NotNull
     private LocalDate creationDate;

@@ -25,7 +25,7 @@ public class Savings extends Account {
 
     @NotNull
     private String secretKey;
-    @Transient
+    @NotNull
     private BigDecimal minimumBalance = BigDecimal.valueOf(1000);
     @NotNull
     private LocalDate creationDate;
