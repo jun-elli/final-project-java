@@ -7,6 +7,7 @@ import com.ironhack.finalProject.models.users.AccountHolder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -30,6 +31,8 @@ public class Checking extends Account{
     private final BigDecimal MONTHLY_MAINTENANCE_FEE = BigDecimal.valueOf(12);
     @NotNull
     private LocalDate creationDate;
+    @Transient
+    private LocalDate whenLastMaintenanceFeeWasDeducted;
     @NotNull
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
@@ -41,6 +44,7 @@ public class Checking extends Account{
         super(money, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.creationDate = creationDate;
+        this.whenLastMaintenanceFeeWasDeducted = creationDate;
         this.status = status;
     }
 
@@ -76,6 +80,14 @@ public class Checking extends Account{
         this.status = status;
     }
 
+    public LocalDate getWhenLastMaintenanceFeeWasDeducted() {
+        return whenLastMaintenanceFeeWasDeducted;
+    }
+
+    public void setWhenLastMaintenanceFeeWasDeducted(LocalDate whenLastMaintenanceFeeWasDeducted) {
+        this.whenLastMaintenanceFeeWasDeducted = whenLastMaintenanceFeeWasDeducted;
+    }
+
     @Override
     public void setPrimaryOwner(AccountHolder primaryOwner) {
         // calculate age
@@ -95,4 +107,25 @@ public class Checking extends Account{
         }
         return getBalance();
     }
+
+    public void substractMonthlyFee() {
+        BigDecimal months = new BigDecimal(getMonthsSinceLastMaintenanceFeeDeduction());
+        BigDecimal totalFee = getMONTHLY_MAINTENANCE_FEE().multiply(months);
+        Money newTotal = new Money(getBalance().subtract(totalFee));
+        setMoney(newTotal);
+        whenLastMaintenanceFeeWasDeducted = LocalDate.now();
+    }
+
+    public int getMonthsSinceLastMaintenanceFeeDeduction() {
+        return Period.between(getWhenLastMaintenanceFeeWasDeducted(), LocalDate.now()).getMonths();
+    }
+
+    public BigDecimal checkBalance() {
+        if (getMonthsSinceLastMaintenanceFeeDeduction() >= 1) {
+            substractMonthlyFee();
+            return getBalance();
+        }
+        return getBalance();
+    }
+
 }
