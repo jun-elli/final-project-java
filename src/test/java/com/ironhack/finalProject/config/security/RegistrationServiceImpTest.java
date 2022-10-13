@@ -119,10 +119,52 @@ class RegistrationServiceImpTest {
         assertEquals("Chizuko Ueno", newUser.getFullName());
         assertEquals("dra-ueno9", newUser.getCredentials().getUsername());
     }
-
+    // throw errors if information is missing
     @Test
     void addNewUser_ThrowExceptionsIfInformationMissing(){
+        // No credentials info
+        IllegalArgumentException exception;
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            newUser = registrationServiceImp.addNewUser(wrongDTO);
+        });
+        assertEquals("Credentials not found", exception.getMessage());
 
+        // No roles info
+        wrongDTO.setUsername("BobManos");
+        wrongDTO.setSecretPass("manitas33");
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            newUser = registrationServiceImp.addNewUser(wrongDTO);
+        });
+        assertEquals("Roles not found", exception.getMessage());
+
+        // No user type
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("THIRD");
+        wrongDTO.setRoles(roles);
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            newUser = registrationServiceImp.addNewUser(wrongDTO);
+        });
+        assertEquals("User type not found.", exception.getMessage());
+
+        //No Admin info
+        wrongDTO.setUserType(1);
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            newUser = registrationServiceImp.addNewUser(wrongDTO);
+        });
+        assertEquals("Admin information not found.", exception.getMessage());
+
+        // No Third info
+        wrongDTO.setUserType(3);
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            newUser = registrationServiceImp.addNewUser(wrongDTO);
+        });
+        assertEquals("Third party information not found.", exception.getMessage());
+
+        // No Account holder info
+        wrongDTO.setUserType(2);
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            newUser = registrationServiceImp.addNewUser(wrongDTO);
+        });
+        assertEquals("Account holder information not found.", exception.getMessage());
     }
-    // throw errors if information is missing
 }

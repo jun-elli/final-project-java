@@ -62,6 +62,11 @@ public class RegistrationServiceImp implements RegistrationService{
         }
         // agafo DTO i miro quin tipus de user estic rebent
         User newUser;
+        if (userDTO.getUserType() == null){
+            credentialsRepository.delete(savedCredentials);
+            roleRepository.deleteAll(roleList);
+            throw new IllegalArgumentException("User type not found.");
+        }
         switch (userDTO.getUserType()) {
             case 1 -> {
                 Admin a = createAdmin(userDTO, savedCredentials, roleList);
