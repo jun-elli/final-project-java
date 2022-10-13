@@ -1,6 +1,7 @@
 package com.ironhack.finalProject.config.security;
 
 import com.ironhack.finalProject.DTO.RegistrationUserDTO;
+import com.ironhack.finalProject.models.Address;
 import com.ironhack.finalProject.models.users.AccountHolder;
 import com.ironhack.finalProject.models.users.Admin;
 import com.ironhack.finalProject.models.users.ThirdParty;
@@ -18,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +82,27 @@ class RegistrationServiceImpTest {
         newUser = registrationServiceImp.addNewUser(goodDTO);
         assertEquals("Virginia Despentes", newUser.getFullName());
         assertEquals("VirKong1", newUser.getCredentials().getUsername());
+    }
+    @Test
+    void addNewUser_Holder() {
+        goodDTO.setUserType(2);
+        goodDTO.setFullName("Brigitte Vasallo");
+        goodDTO.setUsername("LaVasallo");
+        goodDTO.setSecretPass("biva3");
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("USER");
+        goodDTO.setRoles(roles);
+        goodDTO.setDateOfBirth(LocalDate.of(1984, 1, 20));
+        Address a = new Address("plaça de Roma","30, 2a", "Barcelona", "Espanya","08046");
+        /*Address a2 = addressRepository.save(a);*/
+        goodDTO.setPrimaryAddress(a);
+        newUser = registrationServiceImp.addNewUser(goodDTO);
+        //
+        assertEquals("Brigitte Vasallo", newUser.getFullName());
+        assertEquals("LaVasallo", newUser.getCredentials().getUsername());
+        AccountHolder ah = (AccountHolder) newUser;
+        assertEquals(1, ah.getDateOfBirth().getMonthValue());
+        assertEquals("plaça de Roma", ah.getPrimaryAddress().getStreet());
     }
     // check one user of a kind is created x3
     // throw errors if information is missing

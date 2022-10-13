@@ -23,14 +23,9 @@ public class AccountHolder extends User{
     @JoinColumn(name = "primary_address_id", referencedColumnName = "id")
     private Address primaryAddress;
     @Nullable
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "optional_address_id", referencedColumnName = "id")
     private Address optionalAddress;
-
-   /* @OneToMany(mappedBy = "primaryOwner")
-    private List<Account> accountSetWherePrimaryOwner;
-    @OneToMany(mappedBy = "secondaryOwner")
-    private Set<Account> accountSetWhereSecondaryOwner;*/
 
     public AccountHolder() {
     }

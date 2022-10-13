@@ -29,7 +29,10 @@ values ('USER', 2),
 
 drop database final_project;
 
-select * from account_holders;
+select * from address;
 select * from user;
 select * from credentials;
 select * from roles;
+
+delete from credentials where username = 'VirKong1';
+delete from roles where credentials_id = 10;

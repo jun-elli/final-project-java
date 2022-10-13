@@ -22,10 +22,10 @@ public class Address {
     private String postalCode;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "primaryAddress")
+    @OneToOne(mappedBy = "primaryAddress", cascade = CascadeType.MERGE)
     private AccountHolder accountHolder;
     @JsonIgnore
-    @OneToOne(mappedBy = "optionalAddress")
+    @OneToOne(mappedBy = "optionalAddress", cascade = CascadeType.MERGE)
     private AccountHolder sameAccountHolder;
 
     public Address() {
