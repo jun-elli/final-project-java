@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.models.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.enums.AccountStatus;
 import com.ironhack.finalProject.models.users.AccountHolder;
@@ -35,6 +36,7 @@ public class Savings extends Account {
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
     @Transient
+    @JsonIgnore
     private LocalDate whenLastInterestWasAdded = creationDate;
 
     public Savings() {

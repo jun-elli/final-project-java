@@ -1,3 +1,4 @@
+drop database final_project;
 create DATABASE final_project;
 use final_project;
 
@@ -14,8 +15,8 @@ values('USER', 1);
 insert into user(full_name, date_of_birth, primary_address_id, credentials_id, user_type)
 values ('Marie Boulangerie', '1990-9-9', 1, 1, 2);
 
-insert into checking_accounts(penalty_fee, balance, currency, creation_date, secret_key, status, primary_owner_id)
-values (20, 200, 'USD', '2022-1-1', '666', 'ACTIVE', 1);
+insert into checking_accounts(penalty_fee, balance, currency, creation_date, secret_key, status, primary_owner_id, minimum_balance, monthly_maintenance_fee)
+values (20, 200, 'USD', '2022-1-1', '666', 'ACTIVE', 1, 250, 12);
 
 -- Jun super user (9090)
 insert into credentials (secret_pass, username)
@@ -27,14 +28,15 @@ values ('USER', 2),
     ('SUPER', 2);
 
 
-drop database final_project;
+
 
 select * from address;
 select * from user;
 select * from credentials;
 select * from roles;
+SELECT * from checking_accounts;
 
 delete from address where id = 2;
 delete from user where full_name = 'Bob el Manitas';
 delete from credentials where username = 'bob2';
-delete from roles where credentials_id = 6;
+delete from roles where id > 5;

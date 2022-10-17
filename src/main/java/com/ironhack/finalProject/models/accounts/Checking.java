@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.models.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.enums.AccountStatus;
 import com.ironhack.finalProject.models.users.AccountHolder;
@@ -32,7 +33,8 @@ public class Checking extends Account{
     @NotNull
     private LocalDate creationDate;
     @Transient
-    private LocalDate whenLastMaintenanceFeeWasDeducted;
+    @JsonIgnore
+    private LocalDate whenLastMaintenanceFeeWasDeducted = creationDate;
     @NotNull
     @Enumerated(EnumType.STRING)
     private AccountStatus status = AccountStatus.DISABLED;
@@ -114,8 +116,10 @@ public class Checking extends Account{
         subtractMoney(totalFee);
         whenLastMaintenanceFeeWasDeducted = LocalDate.now();
     }
-
     public int getMonthsSinceLastMaintenanceFeeDeduction() {
+        if (getWhenLastMaintenanceFeeWasDeducted() == null){
+            setWhenLastMaintenanceFeeWasDeducted(creationDate);
+        }
         return Period.between(getWhenLastMaintenanceFeeWasDeducted(), LocalDate.now()).getMonths();
     }
 

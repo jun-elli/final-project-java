@@ -1,5 +1,6 @@
 package com.ironhack.finalProject.models.accounts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.users.AccountHolder;
 
@@ -30,6 +31,7 @@ public class CreditCard extends Account{
     private BigDecimal interestRate = BigDecimal.valueOf(0.2);
 
     @Transient
+    @JsonIgnore
     private LocalDate whenLastMonthlyInterestWasAdded = LocalDate.now();
 
     public CreditCard() {
