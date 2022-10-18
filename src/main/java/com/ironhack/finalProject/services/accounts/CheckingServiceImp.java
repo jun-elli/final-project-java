@@ -25,13 +25,16 @@ public class CheckingServiceImp implements CheckingService{
     @Override
     public Checking showMyAccount(Authentication authentication, int id) {
         Checking myAccount = checkingRepository.findById(id).orElse(null);
-        String authUsername = authentication.getName();
+        if (myAccount == null){
+            throw new IllegalArgumentException("Account with that id not found.");
+        }
         // check if admin or super
         boolean isAdminOrSuper = checkIfIsAdminOrSuper(authentication.getAuthorities().toArray());
         if (!isAdminOrSuper){
+            String authUsername = authentication.getName();
             String myAccountUsername = myAccount.getPrimaryOwner().getCredentials().getUsername();
-            if (myAccount == null || !Objects.equals(authUsername, myAccountUsername)){
-                throw new IllegalArgumentException("Account not found for that username.");
+            if (!Objects.equals(authUsername, myAccountUsername)){
+                throw new IllegalArgumentException("Wrong username for this account.");
             }
         }
         return myAccount;
