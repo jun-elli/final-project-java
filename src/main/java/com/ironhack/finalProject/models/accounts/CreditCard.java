@@ -92,14 +92,18 @@ public class CreditCard extends Account{
         */
 
     public int getMonthsSinceLastInterest() {
-        return Period.between(getWhenLastMonthlyInterestWasAdded(), LocalDate.now()).getMonths();
+       Period p = Period.between(getWhenLastMonthlyInterestWasAdded(), LocalDate.now());
+       int years = p.getYears();
+       int months = p.getMonths();
+       return months + (years * 12);
     }
 
     // To modify balance, should I update Money property and then through that, modify balance?
     public void addMonthlyInterest() {
         BigDecimal monthlyInterest = getInterestRate().divide(BigDecimal.valueOf(12), RoundingMode.HALF_EVEN);
         BigDecimal addedInterest = getBalance().multiply(monthlyInterest);
-        Money newTotal = new Money(getBalance().add(addedInterest));
+        BigDecimal totalAddedInterest = addedInterest.multiply(new BigDecimal(getMonthsSinceLastInterest()));
+        Money newTotal = new Money(getBalance().add(totalAddedInterest));
         setMoney(newTotal);
         whenLastMonthlyInterestWasAdded = LocalDate.now();
     }
