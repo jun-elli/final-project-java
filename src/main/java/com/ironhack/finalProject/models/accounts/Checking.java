@@ -103,9 +103,11 @@ public class Checking extends Account{
 
     @Override
     public BigDecimal subtractMoney(Money substractingMoney) {
-        getMoney().decreaseAmount(substractingMoney);
+        Money newMoney = new Money(getBalance().subtract(substractingMoney.getAmount()));
+        setMoney(newMoney);
         if (getBalance().compareTo(getMINIMUM_BALANCE()) < 0){
-            getMoney().decreaseAmount(getPENALTY_FEE());
+            Money newMoneyMinusPenaltyFee = new Money(getBalance().subtract(getPENALTY_FEE()));
+            setMoney(newMoneyMinusPenaltyFee);
         }
         return getBalance();
     }
