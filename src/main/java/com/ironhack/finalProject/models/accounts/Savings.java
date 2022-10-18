@@ -131,6 +131,9 @@ public class Savings extends Account {
     }
 
     public int getYearsSinceLastInterest() {
+        if (getWhenLastInterestWasAdded() == null){
+            setWhenLastInterestWasAdded(getCreationDate());
+        }
         return Period.between(getWhenLastInterestWasAdded(), LocalDate.now()).getYears();
     }
 

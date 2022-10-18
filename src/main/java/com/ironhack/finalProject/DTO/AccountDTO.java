@@ -9,8 +9,8 @@ public class AccountDTO {
     private AccountType accountType;
     private BigDecimal balance;
     private String currency;
-    private int primary_owner_id;
-    private int secondary_owner_id;
+    private int primaryOwnerId;
+    private int secondaryOwnerId;
     // checking & savings & student
     private String rawSecretKey;
     private String creationDate;
@@ -46,20 +46,20 @@ public class AccountDTO {
         this.currency = currency;
     }
 
-    public int getPrimary_owner_id() {
-        return primary_owner_id;
+    public int getPrimaryOwnerId() {
+        return primaryOwnerId;
     }
 
-    public void setPrimary_owner_id(int primary_owner_id) {
-        this.primary_owner_id = primary_owner_id;
+    public void setPrimaryOwnerId(int primaryOwnerId) {
+        this.primaryOwnerId = primaryOwnerId;
     }
 
-    public int getSecondary_owner_id() {
-        return secondary_owner_id;
+    public int getSecondaryOwnerId() {
+        return secondaryOwnerId;
     }
 
-    public void setSecondary_owner_id(int secondary_owner_id) {
-        this.secondary_owner_id = secondary_owner_id;
+    public void setSecondaryOwnerId(int secondaryOwnerId) {
+        this.secondaryOwnerId = secondaryOwnerId;
     }
 
     public String getRawSecretKey() {

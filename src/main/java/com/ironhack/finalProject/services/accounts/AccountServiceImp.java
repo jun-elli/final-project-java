@@ -53,10 +53,10 @@ public class AccountServiceImp implements AccountService{
         Money money = new Money(dto.getBalance(), Currency.getInstance(dto.getCurrency()));
         newSavings.setMoney(money);
         // owners
-        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimary_owner_id()).orElseThrow();
+        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimaryOwnerId()).orElseThrow();
         newSavings.setPrimaryOwner(a1);
-        if (dto.getSecondary_owner_id() > 0){
-            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondary_owner_id()).orElseThrow();
+        if (dto.getSecondaryOwnerId() > 0){
+            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondaryOwnerId()).orElseThrow();
             newSavings.setSecondaryOwner(a2);
         }
         //min bal interest
@@ -75,10 +75,10 @@ public class AccountServiceImp implements AccountService{
         Money money = new Money(dto.getBalance(), Currency.getInstance(dto.getCurrency()));
         newCard.setMoney(money);
         // owners
-        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimary_owner_id()).orElseThrow();
+        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimaryOwnerId()).orElseThrow();
         newCard.setPrimaryOwner(a1);
-        if (dto.getSecondary_owner_id() > 0){
-            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondary_owner_id()).orElseThrow();
+        if (dto.getSecondaryOwnerId() > 0){
+            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondaryOwnerId()).orElseThrow();
             newCard.setSecondaryOwner(a2);
         }
         newCard.setCreditLimit(dto.getCreditLimit());
@@ -91,10 +91,10 @@ public class AccountServiceImp implements AccountService{
         Money money = new Money(dto.getBalance(), Currency.getInstance(dto.getCurrency()));
         newStudent.setMoney(money);
         // owners
-        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimary_owner_id()).orElseThrow();
+        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimaryOwnerId()).orElseThrow();
         newStudent.setPrimaryOwner(a1);
-        if (dto.getSecondary_owner_id() > 0){
-            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondary_owner_id()).orElseThrow();
+        if (dto.getSecondaryOwnerId() > 0){
+            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondaryOwnerId()).orElseThrow();
             newStudent.setSecondaryOwner(a2);
         }
         // others
@@ -109,10 +109,10 @@ public class AccountServiceImp implements AccountService{
         Money money = new Money(dto.getBalance(), Currency.getInstance(dto.getCurrency()));
         newChecking.setMoney(money);
         // owners
-        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimary_owner_id()).orElseThrow();
+        AccountHolder a1 = accountHolderRepository.findById(dto.getPrimaryOwnerId()).orElseThrow();
         newChecking.setPrimaryOwner(a1);
-        if (dto.getSecondary_owner_id() > 0){
-            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondary_owner_id()).orElseThrow();
+        if (dto.getSecondaryOwnerId() > 0){
+            AccountHolder a2 = accountHolderRepository.findById(dto.getSecondaryOwnerId()).orElseThrow();
             newChecking.setSecondaryOwner(a2);
         }
         // others
