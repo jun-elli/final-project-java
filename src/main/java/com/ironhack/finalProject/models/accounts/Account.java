@@ -8,6 +8,8 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Objects;
+
 @MappedSuperclass
 public class Account {
     @Id
@@ -54,7 +56,7 @@ public class Account {
     }
 
     public void setMoney(Money money) {
-        if (this.currency == money.getCurrency().toString()){
+        if (Objects.equals(getCurrency(), money.getCurrency().toString())){
             this.money = money;
             setBalance(money.getAmount());
         }else{
@@ -104,7 +106,9 @@ public class Account {
     //Basic add and substract money methods,
     // they will be overridden to account for limits on subclasses
     public BigDecimal addMoney(Money addingMoney){
-        this.money.increaseAmount(addingMoney);
+        /*this.money.increaseAmount(addingMoney);*/
+        Money newMoney = new Money(getBalance().add(addingMoney.getAmount()));
+        setMoney(newMoney);
         return getBalance();
     }
     public BigDecimal subtractMoney(Money substractingMoney){

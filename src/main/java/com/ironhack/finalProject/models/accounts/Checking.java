@@ -131,4 +131,10 @@ public class Checking extends Account{
         return getBalance();
     }
 
+    @Override
+    public BigDecimal addMoney(Money addingMoney) {
+        Money newMoney = new Money(getBalance().add(addingMoney.getAmount()));
+        setMoney(newMoney);
+        return checkBalance();
+    }
 }

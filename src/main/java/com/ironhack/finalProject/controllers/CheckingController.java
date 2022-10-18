@@ -1,12 +1,11 @@
 package com.ironhack.finalProject.controllers;
 
+import com.ironhack.finalProject.DTO.BalanceDTO;
 import com.ironhack.finalProject.models.accounts.Checking;
 import com.ironhack.finalProject.services.accounts.CheckingServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,8 +20,12 @@ public class CheckingController {
         return checkingServiceImp.listCheckings();
     }
 
-    @GetMapping("/myaccount/{id}")
+    @GetMapping("/myaccount/checking/{id}")
     public Checking getMyCheckingAccount(Authentication authentication, @PathVariable int id){
         return checkingServiceImp.showMyAccount(authentication, id);
+    }
+    @PutMapping("/change/checking/{id}")
+    public Checking changeBalanceChecking(@PathVariable int id, @RequestBody BalanceDTO dto){
+        return checkingServiceImp.changeBalance(id, dto);
     }
 }

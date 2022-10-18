@@ -1,6 +1,8 @@
 package com.ironhack.finalProject.services.accounts;
 
 
+import com.ironhack.finalProject.DTO.BalanceDTO;
+import com.ironhack.finalProject.models.Money;
 import com.ironhack.finalProject.models.accounts.Checking;
 import com.ironhack.finalProject.repositories.accounts.CheckingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +41,33 @@ public class CheckingServiceImp implements CheckingService{
             }
         }
         return myAccount;
+    }
+
+    @Override
+    public Checking changeBalance(int id, BalanceDTO dto) {
+        Checking a = checkingRepository.findById(id).orElse(null);
+        if (a == null){
+            throw new IllegalArgumentException("Account with that id not found.");
+        }
+        Checking savedAcc;
+        switch (dto.getOperation()){
+            case ADD -> savedAcc = addToAccount(a, dto);
+            case SUBTRACT -> savedAcc = subtractFromAccount(a, dto);
+            default -> throw new IllegalArgumentException("Operation not available.");
+        }
+        return savedAcc;
+    }
+
+    private Checking subtractFromAccount(Checking a, BalanceDTO dto) {
+        Money m = new Money(dto.getAmount(), Currency.getInstance(dto.getCurrency()));
+        a.subtractMoney(m);
+        return checkingRepository.save(a);
+    }
+
+    private Checking addToAccount(Checking a, BalanceDTO dto) {
+        Money m = new Money(dto.getAmount(), Currency.getInstance(dto.getCurrency()));
+        a.addMoney(m);
+        return checkingRepository.save(a);
     }
 
     private boolean checkIfIsAdminOrSuper(Object[] array) {
