@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                 .authorizeRequests()
                 .mvcMatchers(HttpMethod.GET, "/checkings").hasAnyRole("USER")
                 .mvcMatchers(HttpMethod.GET, "/myaccount").hasAnyRole("USER", "ADMIN", "SUPER")
+                .mvcMatchers(HttpMethod.GET, "/newaccount").hasAnyRole("ADMIN", "SUPER")
                 .anyRequest().permitAll();
         return http.build();
     }
