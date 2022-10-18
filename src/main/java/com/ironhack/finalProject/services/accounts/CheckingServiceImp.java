@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,10 +26,23 @@ public class CheckingServiceImp implements CheckingService{
     public Checking showMyAccount(Authentication authentication, int id) {
         Checking myAccount = checkingRepository.findById(id).orElse(null);
         String authUsername = authentication.getName();
-        String myAccountUsername = myAccount.getPrimaryOwner().getCredentials().getUsername();
-        if (myAccount == null || !Objects.equals(authUsername, myAccountUsername)){
-            throw new IllegalArgumentException("Account not found for that username.");
+        // check if admin or super
+        boolean isAdminOrSuper = checkIfIsAdminOrSuper(authentication.getAuthorities().toArray());
+        if (!isAdminOrSuper){
+            String myAccountUsername = myAccount.getPrimaryOwner().getCredentials().getUsername();
+            if (myAccount == null || !Objects.equals(authUsername, myAccountUsername)){
+                throw new IllegalArgumentException("Account not found for that username.");
+            }
         }
         return myAccount;
+    }
+
+    private boolean checkIfIsAdminOrSuper(Object[] array) {
+        for (Object role : array) {
+            if (Objects.equals(role.toString(), "ROLE_ADMIN") || Objects.equals(role.toString(), "ROLE_SUPER")){
+                return true;
+            }
+        }
+        return false;
     }
 }
