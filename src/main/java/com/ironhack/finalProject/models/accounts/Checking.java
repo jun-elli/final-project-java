@@ -32,8 +32,6 @@ public class Checking extends Account{
     private final BigDecimal MONTHLY_MAINTENANCE_FEE = BigDecimal.valueOf(12);
     @NotNull
     private LocalDate creationDate;
-    @Transient
-    @JsonIgnore
     private LocalDate whenLastMaintenanceFeeWasDeducted = creationDate;
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -116,7 +114,7 @@ public class Checking extends Account{
         BigDecimal months = new BigDecimal(getMonthsSinceLastMaintenanceFeeDeduction());
         Money totalFee = new Money(getMONTHLY_MAINTENANCE_FEE().multiply(months));
         subtractMoney(totalFee);
-        whenLastMaintenanceFeeWasDeducted = LocalDate.now();
+        setWhenLastMaintenanceFeeWasDeducted(LocalDate.now());
     }
     public int getMonthsSinceLastMaintenanceFeeDeduction() {
         if (getWhenLastMaintenanceFeeWasDeducted() == null){
