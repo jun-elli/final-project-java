@@ -14,7 +14,7 @@ Spring Boot application run with Java 18, Hibernate and MySQL.
 >   * [UML diagram](#UML)
 >   * [Class diagram](#Class-diagram)
 >   * [Endpoints](#endpoints)
-> * [Features](#features)
+> * [Features](#features) > [List of actions to try](#functionality)
 > * [Usage](#usage)
 > * [Project requirements](#requirements)
 
@@ -23,12 +23,12 @@ Spring Boot application run with Java 18, Hibernate and MySQL.
 
 To run locally you need:
 
-* Have a MySql Database called `bank`
+* Create a MySql Database called `bank`
 * Remember to change your username and password for the DB in the file `src / main / resources / application.properties`
-* ~~Once the apps starts, it will run a pre-population of the DB (see AppApplication.java) if you set this boolean to true
-boolean allowRepopulateDB = false;~~
-* Run the `bankData.sql` script to populate your DB
-* Run the application (runs in localhost:8080 by default)
+* Run the spring boot application once, so it can generate the necessary tables in the DB for you (runs in localhost:8080 by default)
+* Stop the application
+* Run the `bankData.sql` script in MySQL Workbench to populate your DB with temporary data
+* Run the application again
 * Use the attached POSTMAN collection to test endpoints
 
 ## Structure
@@ -74,6 +74,37 @@ This application allows you to:
 * ~~Transactions between accounts~~
 * Automatic calculation of interests and feeds on intervals (when setting or getting accounts balances)
 
+#### Functionality
+
+Here is a list of actions I had to demonstrate to my teachers:
+
+>- [ ] System will be preloaded with the following data:
+>  - [ ] An admin user
+>  - [ ] An account holder 1
+>    - older than 24 years old
+>    - has a credit card
+>    - has a checking account
+>  - [ ] An account holder 2
+>    - younger than 24 years old
+>    - has a savings account
+>  - [ ] A third party user
+>- [ ] Using admin credentials, create a new checking account for account holder 2 to see how an error is prompted if you don't choose to create a student checking account. Clients younger than 24 years old can only open student checking accounts instead of normal checking.
+>- [ ] As an admin, you can increase the account holder 1's checking account balance by 100 USD
+>- [ ] ~~Un third party debe retirar 10 de una cuenta~~ not implemented
+>- [ ] Each account holder should be able to see their account information using their credentials
+>  - [ ] Likewise, they shouldn't be able to access another clients account information
+>- [ ] You can update a credit card creation's date in order to see how interest ratings get applied and increase the balance
+>- [ ] Remove money from an account to go below the minimum balance threshold and see how penalty fees apply
+
+Apart from that you can: 
+- POST Create all 3 kinds of users and all 4 kinds of accounts. You will have to use an admin's credentials.
+- You can GET a list of all:
+  - users
+  - credentials
+  - checking accounts
+  - addresses
+- GET You can access your own checking account information
+- PUT You can add or subtract money from a checking account
 
 # Requirements
 
