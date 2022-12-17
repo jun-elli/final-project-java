@@ -1,0 +1,438 @@
+{
+	"info": {
+		"_postman_id": "5d81510e-98dd-4d44-aeca-80d64832d3ae",
+		"name": "Ironhack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20676367"
+	},
+	"item": [
+		{
+			"name": "get all addresses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/address",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"address"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all checking accounts using admin cred",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "9090",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jun90",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/checkings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"checkings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all credentials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/credentials",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"credentials"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrar third party",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"userType\": 3,\n        \"fullName\": \"Peppa Pig\",\n        \"username\": \"Peppa1\",\n        \"secretPass\": \"oinkoink333\",\n        \"roles\": [\"THIRD\"],\n        \"hashedKey\": \"ID33 123 123\"\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrar admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"userType\": 1,\n        \"fullName\": \"Elsa Frozen\",\n        \"username\": \"congelada1\",\n        \"secretPass\": \"letitgo1\",\n        \"roles\": [\"ADMIN\", \"USER\"]\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrar holder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"userType\": 2,\n        \"fullName\": \"Cleopatra de Egipto\",\n        \"username\": \"cleo1\",\n        \"secretPass\": \"reinaDelDesierto1\",\n        \"roles\": [\"USER\"],\n        \"dateOfBirth\": \"1930-01-01\",\n        \"primaryAddress\": {\n            \"street\": \"valle de los Reyes\",\n            \"additionalAddress\": \"Pirámide 3\",\n            \"city\": \"Desierto\",\n            \"country\": \"Egipto\",\n            \"postalCode\": \"003300\"\n        },\n        \"optionalAddress\": null\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/registration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "my checking account",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "letitgo1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "congelada1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/myaccount/checking/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"myaccount",
+						"checking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create checking",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "9090",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jun90",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountType\": \"CHECKING\",\n    \"balance\": 1000.00,\n    \"currency\": \"USD\",\n    \"primaryOwnerId\": 7,\n    \"secondaryOwnerId\": null,\n    \"rawSecretKey\": 1290,\n    \"creationDate\": \"2022-09-02\",\n    \"accountStatus\": \"ACTIVE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/newaccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"newaccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create student",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "9090",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jun90",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountType\": \"STUDENT_CHECKING\",\n    \"balance\": 50.00,\n    \"currency\": \"USD\",\n    \"primaryOwnerId\": 7,\n    \"secondaryOwnerId\": null,\n    \"rawSecretKey\": 10101,\n    \"creationDate\": \"2022-04-02\",\n    \"accountStatus\": \"ACTIVE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/newaccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"newaccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create savings",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "9090",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jun90",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountType\": \"SAVINGS\",\n    \"balance\": 150.00,\n    \"currency\": \"USD\",\n    \"primaryOwnerId\": 3,\n    \"secondaryOwnerId\": null,\n    \"rawSecretKey\": 3131,\n    \"creationDate\": \"2022-07-02\",\n    \"accountStatus\": \"ACTIVE\",\n    \"minimumBalance\": 50.00,\n    \"interestRate\": 0.20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/newaccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"newaccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create credit card",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "9090",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jun90",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountType\": \"CREDIT_CARD\",\n    \"balance\": 505.00,\n    \"currency\": \"USD\",\n    \"primaryOwnerId\": 4,\n    \"secondaryOwnerId\": null,\n    \"rawSecretKey\": 1122,\n    \"creationDate\": \"2022-04-02\",\n    \"accountStatus\": \"ACTIVE\",\n    \"creditLimit\": 300.00,\n    \"interestRate\": 0.20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/newaccount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"newaccount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add or subtract from checking",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "9090",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jun90",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"operation\": \"ADD\",\n    \"amount\": 500,\n    \"currency\": \"USD\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/change/checking/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"change",
+						"checking",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

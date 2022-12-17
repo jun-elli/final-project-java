@@ -17,7 +17,6 @@
 
 -- ----- HERE BEGINS THE SCRIPT -------
 use bank;
-use final_project;
 
 -- ---- WE ADD AN ADMIN USER: jun90 PASS: 9090 ----------
 insert into credentials (secret_pass, username)
@@ -48,7 +47,7 @@ insert into address(street, additional_address, city, country, postal_code)
 VALUes ('carrer del Croissant', 'entresol 4', 'Barcelona', 'Spain', '08001');
 -- set user --
 insert into user(full_name, date_of_birth, primary_address_id, credentials_id, user_type)
-values ('Marie Boulangerie', '1990-9-9', 1, 1, 2);
+values ('Marie Boulangerie', '1990-9-9', 1, 3, 2);
 -- set account --
 insert into checking_accounts(penalty_fee, balance, currency, creation_date, secret_key, status, primary_owner_id, minimum_balance, monthly_maintenance_fee)
 values (40, 200, 'USD', '2022-1-1', '$2a$10$bQGNHAEbZl.mf/HKO.0fJu7GdeBM6tR.70KyXn7H4n4jmdjWSXjyS', 'ACTIVE', 3, 250, 12);
@@ -73,7 +72,7 @@ values (40, 2000, 'USD', '2020-1-1', 0.10, 1000, '$2a$10$FuVHmBuI6IjKdFvFXQryN.n
 
 
 -- select * from address;
--- select * from user;
+ -- select * from user;
 -- select * from credentials;
 -- select * from roles;
 -- SELECT * from checking_accounts;

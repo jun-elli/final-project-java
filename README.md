@@ -90,14 +90,16 @@ Here is a list of actions I had to demonstrate to my teachers:
 >  - [ ] A third party user
 >- [ ] Using admin credentials, create a new checking account for account holder 2 to see how an error is prompted if you don't choose to create a student checking account. Clients younger than 24 years old can only open student checking accounts instead of normal checking.
 >- [ ] As an admin, you can increase the account holder 1's checking account balance by 100 USD
->- [ ] ~~Un third party debe retirar 10 de una cuenta~~ not implemented
 >- [ ] Each account holder should be able to see their account information using their credentials
 >  - [ ] Likewise, they shouldn't be able to access another clients account information
->- [ ] You can update a credit card creation's date in order to see how interest ratings get applied and increase the balance
->- [ ] Remove money from an account to go below the minimum balance threshold and see how penalty fees apply
-
+>- [ ] Add money to a new checking account with a creation date set a few months ago to see how monthly maintenance fees apply
+>- [ ] Remove money from a checking account to go below the minimum balance threshold and see how penalty fees apply
+>- [ ] ~~Un third party debe retirar 10 de una cuenta~~ not implemented
+>- [ ] ~~You can update a credit card creation's date in order to see how interest ratings get applied and increase the balance~~ not implemented
 Apart from that you can: 
-- POST Create all 3 kinds of users and all 4 kinds of accounts. You will have to use an admin's credentials.
+- POST
+  - Create all 3 kinds of users.
+  - Create all 4 kinds of accounts. You will have to use an admin's credentials.
 - You can GET a list of all:
   - users
   - credentials
