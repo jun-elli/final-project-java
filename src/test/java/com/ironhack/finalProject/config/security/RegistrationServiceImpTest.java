@@ -94,7 +94,6 @@ class RegistrationServiceImpTest {
         goodDTO.setRoles(roles);
         goodDTO.setDateOfBirth(LocalDate.of(1984, 1, 20));
         Address a = new Address("plaça de Roma","30, 2a", "Barcelona", "Espanya","08046");
-        /*Address a2 = addressRepository.save(a);*/
         goodDTO.setPrimaryAddress(a);
         newUser = registrationServiceImp.addNewUser(goodDTO);
         //
