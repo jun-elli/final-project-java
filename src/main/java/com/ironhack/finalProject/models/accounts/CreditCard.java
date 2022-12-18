@@ -98,7 +98,6 @@ public class CreditCard extends Account{
        return months + (years * 12);
     }
 
-    // To modify balance, should I update Money property and then through that, modify balance?
     public void addMonthlyInterest() {
         BigDecimal monthlyInterest = getInterestRate().divide(BigDecimal.valueOf(12), 4, RoundingMode.HALF_EVEN);
         BigDecimal addedInterest = getBalance().multiply(monthlyInterest);

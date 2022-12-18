@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "third_parties")
 @DiscriminatorValue("3")
 public class ThirdParty extends User{
-    // hashed key is an identifier
     private String hashedKey;
 
     public ThirdParty() {

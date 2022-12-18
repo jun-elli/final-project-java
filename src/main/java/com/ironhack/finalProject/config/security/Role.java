@@ -14,7 +14,7 @@ public class Role {
 
     private String name;
 
-    //Many to many
+    //Many to many?
     @JsonIgnore
     @ManyToOne
     private Credentials credentials;

@@ -15,7 +15,6 @@ import java.time.Period;
 @Entity
 @Table(name = "checking_accounts")
 public class Checking extends Account{
-    //like IBAN 2000 4564 5000 3837
 
 /*
     When creating a new Checking account, if the primaryOwner is less than 24,

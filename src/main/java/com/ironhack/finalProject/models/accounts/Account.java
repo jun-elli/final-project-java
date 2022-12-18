@@ -103,10 +103,10 @@ public class Account {
     public String printActualBalance(){
         return this.money.toString();
     }
+
     //Basic add and substract money methods,
     // they will be overridden to account for limits on subclasses
     public BigDecimal addMoney(Money addingMoney){
-        /*this.money.increaseAmount(addingMoney);*/
         Money newMoney = new Money(getBalance().add(addingMoney.getAmount()));
         setMoney(newMoney);
         return getBalance();
