@@ -14,8 +14,8 @@ Spring Boot application run with Java 18, Hibernate and MySQL.
 >   * [UML diagram](#UML)
 >   * [Class diagram](#Class-diagram)
 >   * [Endpoints](#endpoints)
-> * [Features](#features) > [List of actions to try](#functionality)
 > * [Usage](#usage)
+> * [Features](#features) > [List of actions to try](#functionality)
 > * [Project requirements](#requirements)
 
 
@@ -39,30 +39,18 @@ To run locally you need:
 
 ### Endpoints
 
+Check `bank_final_project.postman_collection.json` postman collection to try different endpoints
+
 ## Usage
 
 Once you have run the sql script to populate your DB, you will be able to try most functionalities with the following credentials:
 
-> `username: admin@bank.com` 
-> `password: test1234`
+> `username: jun90` 
+> `password: 9090`
 
 **Other users:**
 
-* Account Holder with a Student checking account:
-> `username: admin@bank.com`
-> `password: test1234`
-
-* Account Holder with a Student checking account:
-> `username: admin@bank.com`
-> `password: test1234`
-
-* Account Holder with a Student checking account:
-> `username: admin@bank.com`
-> `password: test1234`
-
-* Account Holder with a Student checking account:
-> `username: admin@bank.com`
-> `password: test1234`
+In `bankData.sql` script, you'll found the credentials for different kind of users.
 
 ### Features
 
@@ -71,8 +59,8 @@ This application allows you to:
 * Authentication with Json Web Tokens
 * Protected Routes
 * Allows creations of accounts
-* ~~Transactions between accounts~~
-* Automatic calculation of interests and feeds on intervals (when setting or getting accounts balances)
+* Automatic calculation of interests when adding money
+* Automatic subtraction of penalty fee if transaction sets money below minimum threshold
 
 #### Functionality
 
@@ -96,7 +84,8 @@ Here is a list of actions I had to demonstrate to my teachers:
 >- [ ] Remove money from a checking account to go below the minimum balance threshold and see how penalty fees apply
 >- [ ] ~~Un third party debe retirar 10 de una cuenta~~ not implemented
 >- [ ] ~~You can update a credit card creation's date in order to see how interest ratings get applied and increase the balance~~ not implemented
-Apart from that you can: 
+
+- Apart from that you can: 
 - POST
   - Create all 3 kinds of users.
   - Create all 4 kinds of accounts. You will have to use an admin's credentials.
@@ -106,7 +95,7 @@ Apart from that you can:
   - checking accounts
   - addresses
 - GET You can access your own checking account information
-- PUT You can add or subtract money from a checking account
+- PUT You can add or subtract money from a checking account and see how interests or penalty fees apply
 
 # Requirements
 
