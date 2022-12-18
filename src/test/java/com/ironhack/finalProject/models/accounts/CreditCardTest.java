@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Currency;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,18 +62,20 @@ class CreditCardTest {
 
     @Test
     void addMonthlyInterest_WorksAsExpected() {
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.now().minusMonths(1));
+
         creditCard.addMonthlyInterest();
         assertEquals(new BigDecimal("1010.00"), creditCard.getBalance());
         assertEquals(LocalDate.now().getDayOfMonth(), creditCard.getWhenLastMonthlyInterestWasAdded().getDayOfMonth());
     }
 
-    @Test // If I have time, think how to change dates according to actual date
+    @Test
     void isTimeToAddInterest() {
         //False if less than a month
-        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 9, 13));
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.now().minusWeeks(1));
         assertFalse(creditCard.isTimeToAddInterest());
         //true if more than a month
-        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 8, 13));
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.now().minusMonths(1));
         assertTrue(creditCard.isTimeToAddInterest());
 
     }
@@ -80,11 +83,11 @@ class CreditCardTest {
     @Test
     void checkBalance() {
         // if less than a month, balance should be 1000.00
-        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 9, 13));
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.now().minusWeeks(1));
         assertEquals(new BigDecimal("1000.00"), creditCard.checkBalance());
 
         //if time is more than a month, add new interest and return balance should be 1010.00
-        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.of(2022, 8, 13));
+        creditCard.setWhenLastMonthlyInterestWasAdded(LocalDate.now().minusMonths(1));
         assertEquals(new BigDecimal("1010.00"), creditCard.checkBalance());
 
 
