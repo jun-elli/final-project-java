@@ -35,7 +35,7 @@ To run locally you need:
 
 ### UML class diagram
 
-![UML class diagram](Bank UML class diagram.png)
+![UML class diagram](Bank_UML_class_diagram.png)
 
 ### Endpoints
 
