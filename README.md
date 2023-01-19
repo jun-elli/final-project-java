@@ -41,6 +41,18 @@ To run locally you need:
 
 Check `bank_final_project.postman_collection.json` postman collection to try different endpoints
 
+<!-- Add list of endpoints maybe -->
+
+| URL | HTTP Method | Description | Request Object | Response Object |
+|-----|-------------|-------------|----------------|-----------------|
+|     | GET         |             |                |                 |
+|     | GET         |             |                |                 |
+|     | GET         |             |                |                 |
+|     | GET         |             |                |                 |
+|     |             |             |                |                 |
+|     |             |             |                |                 |
+
+
 ## Usage
 
 Once you have run the sql script to populate your DB, you will be able to try most functionalities with the following credentials:
