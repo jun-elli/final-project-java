@@ -39,7 +39,9 @@ public class SecurityConfiguration {
         http.httpBasic();
         http.csrf().disable()
                 .authorizeRequests()
-                .mvcMatchers(HttpMethod.GET, "/checkings").hasAnyRole("USER")
+                .mvcMatchers(HttpMethod.GET, "/checkings").hasAnyRole("ADMIN")
+                .mvcMatchers(HttpMethod.GET, "/credentials").hasAnyRole("ADMIN")
+                .mvcMatchers(HttpMethod.GET, "/users").hasAnyRole("USER")
                 .mvcMatchers(HttpMethod.GET, "/myaccount").hasAnyRole("USER", "ADMIN", "SUPER")
                 .mvcMatchers(HttpMethod.GET, "/newaccount").hasAnyRole("ADMIN", "SUPER")
                 .anyRequest().permitAll();

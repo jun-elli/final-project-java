@@ -72,7 +72,7 @@ values (40, 2000, 'USD', '2020-1-1', 0.10, 1000, '$2a$10$FuVHmBuI6IjKdFvFXQryN.n
 
 
 -- select * from address;
- -- select * from user;
+ select * from user;
 -- select * from credentials;
 -- select * from roles;
 -- SELECT * from checking_accounts;

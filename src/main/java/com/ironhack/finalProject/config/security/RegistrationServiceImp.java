@@ -12,9 +12,11 @@ import com.ironhack.finalProject.repositories.users.AdminRepository;
 import com.ironhack.finalProject.repositories.users.ThirdPartyRepository;
 import com.ironhack.finalProject.repositories.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -40,7 +42,8 @@ public class RegistrationServiceImp implements RegistrationService{
     public User addNewUser(RegistrationUserDTO userDTO) {
         // registro les credencials
         if (userDTO.getUsername() == null || userDTO.getSecretPass() == null){
-            throw new IllegalArgumentException("Credentials not found");
+            //throw new IllegalArgumentException("Credentials not found");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Credentials can't be null");
         }
         Credentials credentials = new Credentials();
         credentials.setUsername(userDTO.getUsername());
@@ -50,7 +53,9 @@ public class RegistrationServiceImp implements RegistrationService{
 
         if (userDTO.getRoles() == null){
             credentialsRepository.delete(savedCredentials);
-            throw new IllegalArgumentException("Roles not found");
+            //throw new IllegalArgumentException("Roles not found");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Roles can't be null");
+
         }
         List<Role> roleList = new ArrayList<>();
         for (String role : userDTO.getRoles()) {
@@ -65,7 +70,9 @@ public class RegistrationServiceImp implements RegistrationService{
         if (userDTO.getUserType() == null){
             credentialsRepository.delete(savedCredentials);
             roleRepository.deleteAll(roleList);
-            throw new IllegalArgumentException("User type not found.");
+            // throw new IllegalArgumentException("User type not found.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"User type can't be null");
+
         }
         switch (userDTO.getUserType()) {
             case 1 -> {
@@ -83,7 +90,9 @@ public class RegistrationServiceImp implements RegistrationService{
             default -> {
                 credentialsRepository.delete(savedCredentials);
                 roleRepository.deleteAll(roleList);
-                throw new IllegalArgumentException("User type not found.");
+                //throw new IllegalArgumentException("User type not found.");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"User type not valid");
+
             }
         };
         return newUser;
@@ -93,7 +102,9 @@ public class RegistrationServiceImp implements RegistrationService{
         if (userDTO.getFullName() == null || userDTO.getHashedKey() == null){
             credentialsRepository.delete(savedCredentials);
             roleRepository.deleteAll(roleList);
-            throw new IllegalArgumentException("Third party information not found.");
+            //throw new IllegalArgumentException("Third party information not found.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Third party information incomplete.");
+
         }
         return new ThirdParty(userDTO.getFullName(), savedCredentials, passwordEncoder.encode(userDTO.getHashedKey()));
     }
@@ -102,7 +113,9 @@ public class RegistrationServiceImp implements RegistrationService{
         if (userDTO.getFullName() == null || userDTO.getPrimaryAddress() == null || userDTO.getDateOfBirth() == null){
             credentialsRepository.delete(savedCredentials);
             roleRepository.deleteAll(roleList);
-            throw new IllegalArgumentException("Account holder information not found.");
+            //throw new IllegalArgumentException("Account holder information not found.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Account holder information is incomplete");
+
         }
         AccountHolder newHolder = new AccountHolder();
         newHolder.setFullName(userDTO.getFullName());
@@ -128,7 +141,9 @@ public class RegistrationServiceImp implements RegistrationService{
         if (userDTO.getFullName() == null){
             credentialsRepository.delete(savedCredentials);
             roleRepository.deleteAll(roleList);
-            throw new IllegalArgumentException("Admin information not found.");
+            //throw new IllegalArgumentException("Admin information not found.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Admin information is incomplete");
+
         }
         Admin newAdmin = new Admin();
         newAdmin.setFullName(userDTO.getFullName());

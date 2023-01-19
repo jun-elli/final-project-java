@@ -43,14 +43,17 @@ Check `bank_final_project.postman_collection.json` postman collection to try dif
 
 <!-- Add list of endpoints maybe -->
 
-| URL | HTTP Method | Description | Request Object | Response Object |
-|-----|-------------|-------------|----------------|-----------------|
-|     | GET         |             |                |                 |
-|     | GET         |             |                |                 |
-|     | GET         |             |                |                 |
-|     | GET         |             |                |                 |
-|     |             |             |                |                 |
-|     |             |             |                |                 |
+| URL                             | HTTP Method | Description                                                 |
+|---------------------------------|-------------|-------------------------------------------------------------|
+| /address                        | GET         | Get list of address                                         |
+| /users                          | GET         | Get list of users (need USER creds)                         |
+| /credentials                    | GET         | Get list of credentials (needs ADMIN creds)                 |
+| /checkings                      | GET         | Get list of checking accounts (needs ADMIN creds)           |
+| /registration                   | POST        | Create new user of type (USER, ADMIN or THIRD)              |
+| /newaccount                     | POST        | Create new account (checking, student, saving, credit card) |
+| /myaccount/checking/{accountid} | GET         | Get one checking account with owner's credentials or ADMIN  |
+| /change/checking/{accountid}    | PUT         | Add or subtract money from checking account                 |
+
 
 
 ## Usage
